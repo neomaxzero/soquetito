@@ -9,6 +9,8 @@ const state = {
   buttons: {},
 };
 
+const mess = message => JSON.stringify(message);
+
 wss.on("connection", function connection(ws) {
   state.users[ws] = { id: '0' }; 
 
@@ -28,7 +30,7 @@ wss.on("connection", function connection(ws) {
     ws.send(mess({ type: 'PONG'}));
   }, 5000);
 
-  ws.send(mess({ type: "INITIAL_STATE", users: sendInitialState() }));
+  ws.send(mess({ type: "INITIAL_STATE", users: [] }));
 });
 
 console.log("Listening on port 3099");
